@@ -1,0 +1,1 @@
+deno run --allow-net --allow-write --allow-read src/index.ts
