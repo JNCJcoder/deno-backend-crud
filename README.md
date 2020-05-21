@@ -35,4 +35,4 @@ Import the Insomnia.json file using the [Insomnia](https://insomnia.rest/downloa
 
 
 ## 📝License
-This project is under [MIT License](LICENSE.md).
+This project is under [MIT License](LICENSE).
