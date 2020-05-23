@@ -17,7 +17,7 @@ class ClienteController {
     } catch (err) {
       console.log(err);
       response.status = 500;
-      response.body = err;
+      response.body = { msg: err };
     }
   }
 
@@ -45,7 +45,7 @@ class ClienteController {
 
     db.updateData(ClientList);
     response.status = 201;
-    response.body = "Client added successfully";
+    response.body = { msg: "Client added successfully" };
   }
 
   public async read({ params, response }: Read) {
@@ -64,7 +64,7 @@ class ClienteController {
 
     if (!clientFound) {
       response.status = 404;
-      response.body = `Client ${params.id} does not exist`;
+      response.body = { msg: `Client ${params.id} does not exist` };
       return;
     }
     response.status = 200;
@@ -91,7 +91,7 @@ class ClienteController {
     });
     db.updateData(ClientListUpdated);
     response.status = 201;
-    response.body = `Client ${clientID} updated successfully!`;
+    response.body = { msg: `Client ${clientID} updated successfully!` };
   }
 
   public async delete({ params, response }: Delete) {
@@ -110,13 +110,13 @@ class ClienteController {
 
     if (ClientList.length === ClientListUpdated.length) {
       response.status = 404;
-      response.body = `Client ${params.id} does not exist.`;
+      response.body = { msg: `Client ${params.id} does not exist.` };
       return;
     }
 
     db.updateData(ClientListUpdated);
     response.status = 204;
-    response.body = `Client ${params.id} deleted successfully!`;
+    response.body = { msg: `Client ${params.id} deleted successfully!` };
   }
 }
 
