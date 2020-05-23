@@ -17,9 +17,17 @@
 
 Backend with CRUD Restful made using Deno, TypeScript, JSON and OAK.
 
-* Created with Deno 1.0.0
-* The database is a ".json file".
-* [OAK](https://github.com/oakserver/oak) is a lib very similar to [NodeJS's Express](https://expressjs.com).
+- Created with Deno 1.0.0
+- The database is a ".json file".
+- [OAK](https://github.com/oakserver/oak) is a lib very similar to [NodeJS's Express](https://expressjs.com).
+
+| Routes      | HTTP   | Description         |
+| ----------- | ------ | ------------------- |
+| /client     | GET    | Read All Clients    |
+| /client     | POST   | Create Client       |
+| /client/:id | GET    | Read by Client ID   |
+| /client/:id | PUT    | Update By Client ID |
+| /client/:id | DELETE | Delete By Client ID |
 
 ## 👨‍🏫 Testing
 
@@ -33,6 +41,6 @@ deno run --allow-net --allow-write --allow-read src/index.ts
 
 Import the Insomnia.json file using the [Insomnia](https://insomnia.rest/download/) or [Postman](https://www.postman.com/).
 
-
 ## 📝License
+
 This project is under [MIT License](LICENSE).
