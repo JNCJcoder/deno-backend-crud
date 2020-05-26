@@ -1,4 +1,5 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
 
 import ClientController from "./controllers/ClientController.ts";
 
@@ -15,6 +16,7 @@ class App {
   }
 
   private middlewares(): void {
+    this.app.use(oakCors());
     this.app.use(this.server.routes());
     this.app.use(this.server.allowedMethods());
   }
