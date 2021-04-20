@@ -53,9 +53,7 @@ class ClienteController {
     }
 
     const ClientList: Array<ClientInterface> = JSON.parse(await db.getData());
-    const clientFound = ClientList.find(({ id }: { id: number }) =>
-      id == clientID
-    );
+    const clientFound = ClientList.find(({ id }) => id == clientID);
 
     if (!clientFound) {
       response.status = Status.NotFound;
@@ -88,7 +86,7 @@ class ClienteController {
       return client;
     });
     await db.updateData(ClientListUpdated);
-    
+
     response.status = Status.OK;
     response.body = { msg: `Client ${clientID} updated successfully!` };
   }
