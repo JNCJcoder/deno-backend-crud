@@ -101,9 +101,7 @@ class ClienteController {
     }
 
     const ClientList: Array<ClientInterface> = JSON.parse(await db.getData());
-    const ClientListUpdated: Array<ClientInterface> = ClientList.filter(
-      client => client.id != clientID
-    );
+    const ClientListUpdated = ClientList.filter(client => client.id != clientID);
 
     if (ClientList.length === ClientListUpdated.length) {
       response.status = Status.NotFound;
