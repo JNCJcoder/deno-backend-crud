@@ -27,7 +27,7 @@ class ClienteController {
       response.body = { msg: "Invalid data" };
       return;
     }
-    
+
     const { name }: { name: string } = await request.body().value;
 
     if (!name) {
@@ -67,6 +67,7 @@ class ClienteController {
       response.body = { msg: `Client ${clientID} does not exist` };
       return;
     }
+    
     response.status = 200;
     response.body = clientFound;
   }
@@ -84,11 +85,12 @@ class ClienteController {
 
     const ClientList: Array<ClientInterface> = JSON.parse(await db.getData());
 
-    const ClientListUpdated = ClientList.filter((clients) => {
-      if (clients.id == clientID) {
-        clients.name = name;
+    const ClientListUpdated = ClientList.filter(client => {
+      if (client.id == clientID) {
+        client.name = name;
       }
-      return clients;
+
+      return client;
     });
     await db.updateData(ClientListUpdated);
     response.status = 201;
@@ -105,9 +107,9 @@ class ClienteController {
     }
 
     const ClientList: Array<ClientInterface> = JSON.parse(await db.getData());
-    const ClientListUpdated: Array<ClientInterface> = ClientList.filter((
-      { id }: { id: number },
-    ) => id != clientID);
+    const ClientListUpdated: Array<ClientInterface> = ClientList.filter(
+      client => client.id != clientID
+    );
 
     if (ClientList.length === ClientListUpdated.length) {
       response.status = 404;
