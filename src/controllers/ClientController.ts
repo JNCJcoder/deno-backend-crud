@@ -27,8 +27,8 @@ class ClienteController {
       response.body = { msg: "Invalid data" };
       return;
     }
-    const { value: { name } }: { value: { name: string } } = await request
-      .body();
+    
+    const { name }: { name: string } = await request.body().value;
 
     if (!name) {
       response.status = 422;
@@ -79,10 +79,11 @@ class ClienteController {
       response.body = { msg: "Invalid Client ID" };
       return;
     }
+    
+    const { name }: { name: string } = await request.body().value;
 
     const ClientList: Array<ClientInterface> = JSON.parse(await db.getData());
-    const { value: { name } }: { value: { name: string } } = await request
-      .body();
+
     const ClientListUpdated = ClientList.filter((clients) => {
       if (clients.id == clientID) {
         clients.name = name;
