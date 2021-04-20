@@ -1,7 +1,7 @@
 import db from "../database/connect.ts";
 import type { ClientInterface } from "../models/Client.ts";
 import type { Context, RouterContext } from "https://deno.land/x/oak/mod.ts";
-
+import { Status } from "https://deno.land/x/oak/mod.ts";
 
 class ClienteController {
   public async index({ response }: Context) {
@@ -11,14 +11,14 @@ class ClienteController {
       response.body = users;
     } catch (err) {
       console.log(err);
-      response.status = 500;
+      response.status = Status.InternalServerError;
       response.body = { msg: err };
     }
   }
 
   public async create({ request, response }: Context) {
     if (!request.hasBody) {
-      response.status = 400;
+      response.status = Status.BadRequest;
       response.body = { msg: "Invalid data" };
       return;
     }
@@ -26,7 +26,7 @@ class ClienteController {
     const { name }: { name: string } = await request.body().value;
 
     if (!name) {
-      response.status = 422;
+      response.status = Status.UnprocessableEntity;
       response.body = { msg: "Name is required." };
       return;
     }
@@ -39,7 +39,7 @@ class ClienteController {
     });
 
     await db.updateData(ClientList);
-    response.status = 201;
+    response.status = Status.Created;
     response.body = { msg: "Client added successfully" };
   }
 
@@ -47,7 +47,7 @@ class ClienteController {
     const clientID = Number(params.id);
 
     if (!clientID) {
-      response.status = 400;
+      response.status = Status.BadRequest;
       response.body = { msg: "Invalid Client ID" };
       return;
     }
@@ -58,12 +58,12 @@ class ClienteController {
     );
 
     if (!clientFound) {
-      response.status = 404;
+      response.status = Status.NotFound;
       response.body = { msg: `Client ${clientID} does not exist` };
       return;
     }
 
-    response.status = 200;
+    response.status = Status.OK;
     response.body = clientFound;
   }
 
@@ -71,7 +71,7 @@ class ClienteController {
     const clientID = Number(params.id);
 
     if (!clientID) {
-      response.status = 400;
+      response.status = Status.BadRequest;
       response.body = { msg: "Invalid Client ID" };
       return;
     }
@@ -88,7 +88,8 @@ class ClienteController {
       return client;
     });
     await db.updateData(ClientListUpdated);
-    response.status = 201;
+    
+    response.status = Status.OK;
     response.body = { msg: `Client ${clientID} updated successfully!` };
   }
 
@@ -96,7 +97,7 @@ class ClienteController {
     const clientID = Number(params.id);
 
     if (!clientID) {
-      response.status = 400;
+      response.status = Status.BadRequest;
       response.body = { msg: "Invalid Client ID." };
       return;
     }
@@ -107,13 +108,14 @@ class ClienteController {
     );
 
     if (ClientList.length === ClientListUpdated.length) {
-      response.status = 404;
+      response.status = Status.NotFound;
       response.body = { msg: `Client ${clientID} does not exist.` };
       return;
     }
 
     await db.updateData(ClientListUpdated);
-    response.status = 204;
+
+    response.status = Status.OK;
     response.body = { msg: `Client ${clientID} deleted successfully!` };
   }
 }
