@@ -64,7 +64,7 @@ class ClienteController {
 
     if (!clientFound) {
       response.status = 404;
-      response.body = { msg: `Client ${params.id} does not exist` };
+      response.body = { msg: `Client ${clientID} does not exist` };
       return;
     }
     response.status = 200;
@@ -110,13 +110,13 @@ class ClienteController {
 
     if (ClientList.length === ClientListUpdated.length) {
       response.status = 404;
-      response.body = { msg: `Client ${params.id} does not exist.` };
+      response.body = { msg: `Client ${clientID} does not exist.` };
       return;
     }
 
     await db.updateData(ClientListUpdated);
     response.status = 204;
-    response.body = { msg: `Client ${params.id} deleted successfully!` };
+    response.body = { msg: `Client ${clientID} deleted successfully!` };
   }
 }
 
