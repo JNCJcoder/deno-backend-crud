@@ -1,15 +1,10 @@
 import db from "../database/connect.ts";
 import type { ClientInterface } from "../models/Client.ts";
-import type {
-  Index,
-  Create,
-  Read,
-  Update,
-  Delete,
-} from "./ClientController.d.ts";
+import type { Context, RouterContext } from "https://deno.land/x/oak/mod.ts";
+
 
 class ClienteController {
-  public async index({ response }: Index) {
+  public async index({ response }: Context) {
     try {
       const users = JSON.parse(await db.getData());
 
@@ -21,7 +16,7 @@ class ClienteController {
     }
   }
 
-  public async create({ request, response }: Create) {
+  public async create({ request, response }: Context) {
     if (!request.hasBody) {
       response.status = 400;
       response.body = { msg: "Invalid data" };
@@ -48,8 +43,8 @@ class ClienteController {
     response.body = { msg: "Client added successfully" };
   }
 
-  public async read({ params, response }: Read) {
-    const clientID = params.id;
+  public async read({ params, response }: RouterContext) {
+    const clientID = Number(params.id);
 
     if (!clientID) {
       response.status = 400;
@@ -72,8 +67,8 @@ class ClienteController {
     response.body = clientFound;
   }
 
-  public async update({ params, request, response }: Update) {
-    const clientID = params.id;
+  public async update({ params, request, response }: RouterContext) {
+    const clientID = Number(params.id);
 
     if (!clientID) {
       response.status = 400;
@@ -97,8 +92,8 @@ class ClienteController {
     response.body = { msg: `Client ${clientID} updated successfully!` };
   }
 
-  public async delete({ params, response }: Delete) {
-    const clientID = params.id;
+  public async delete({ params, response }: RouterContext) {
+    const clientID = Number(params.id);
 
     if (!clientID) {
       response.status = 400;
