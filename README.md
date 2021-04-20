@@ -19,7 +19,7 @@ Backend with CRUD Restful made using Deno, TypeScript, JSON and OAK.
 
 - Created with Deno 1.0.0
 - The database is a ".json file".
-- [OAK](https://github.com/oakserver/oak) is a lib very similar to [NodeJS's Express](https://expressjs.com).
+- [OAK](https://github.com/oakserver/oak) is a lib similar to [NodeJS's Koa](https://github.com/koajs/koa).
 
 | Routes      | HTTP   | Description         |
 | ----------- | ------ | ------------------- |
