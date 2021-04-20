@@ -11,7 +11,7 @@ import type {
 class ClienteController {
   public async index({ response }: Index) {
     try {
-      const users = db.getData();
+      const users = await db.getData();
 
       response.body = users;
     } catch (err) {
@@ -36,14 +36,14 @@ class ClienteController {
       return;
     }
 
-    const ClientList: Array<ClientInterface> = JSON.parse(db.getData());
+    const ClientList: Array<ClientInterface> = JSON.parse(await db.getData());
 
     ClientList.push({
       id: ClientList.length + 1,
       name,
     });
 
-    db.updateData(ClientList);
+    await db.updateData(ClientList);
     response.status = 201;
     response.body = { msg: "Client added successfully" };
   }
@@ -57,7 +57,7 @@ class ClienteController {
       return;
     }
 
-    const ClientList: Array<ClientInterface> = JSON.parse(db.getData());
+    const ClientList: Array<ClientInterface> = JSON.parse(await db.getData());
     const clientFound = ClientList.find(({ id }: { id: number }) =>
       id == clientID
     );
@@ -80,7 +80,7 @@ class ClienteController {
       return;
     }
 
-    const ClientList: Array<ClientInterface> = JSON.parse(db.getData());
+    const ClientList: Array<ClientInterface> = JSON.parse(await db.getData());
     const { value: { name } }: { value: { name: string } } = await request
       .body();
     const ClientListUpdated = ClientList.filter((clients) => {
@@ -89,7 +89,7 @@ class ClienteController {
       }
       return clients;
     });
-    db.updateData(ClientListUpdated);
+    await db.updateData(ClientListUpdated);
     response.status = 201;
     response.body = { msg: `Client ${clientID} updated successfully!` };
   }
@@ -103,7 +103,7 @@ class ClienteController {
       return;
     }
 
-    const ClientList: Array<ClientInterface> = JSON.parse(db.getData());
+    const ClientList: Array<ClientInterface> = JSON.parse(await db.getData());
     const ClientListUpdated: Array<ClientInterface> = ClientList.filter((
       { id }: { id: number },
     ) => id != clientID);
@@ -114,7 +114,7 @@ class ClienteController {
       return;
     }
 
-    db.updateData(ClientListUpdated);
+    await db.updateData(ClientListUpdated);
     response.status = 204;
     response.body = { msg: `Client ${params.id} deleted successfully!` };
   }
