@@ -1,11 +1,11 @@
-import { Application, Router } from "https://deno.land/x/oak/mod.ts";
+import { Application, Router, RouteParams } from "https://deno.land/x/oak/mod.ts";
 import { oakCors } from "https://deno.land/x/cors/mod.ts";
 
 import ClientController from "./controllers/ClientController.ts";
 
 class App {
-  public app: any;
-  private server: any;
+  public app: Application<Record<string, any>>;
+  private server: Router<RouteParams, Record<string, any>>;
 
   public constructor() {
     this.app = new Application();
