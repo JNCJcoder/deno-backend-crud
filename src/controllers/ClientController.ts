@@ -11,7 +11,7 @@ import type {
 class ClienteController {
   public async index({ response }: Index) {
     try {
-      const users = await db.getData();
+      const users = JSON.parse(await db.getData());
 
       response.body = users;
     } catch (err) {
@@ -67,7 +67,7 @@ class ClienteController {
       response.body = { msg: `Client ${clientID} does not exist` };
       return;
     }
-    
+
     response.status = 200;
     response.body = clientFound;
   }
