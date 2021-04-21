@@ -21,13 +21,13 @@ Backend with CRUD Restful made using Deno, TypeScript, JSON and OAK.
 - The database is a ".json file".
 - [OAK](https://github.com/oakserver/oak) is a lib similar to [NodeJS's Koa](https://github.com/koajs/koa).
 
-| Routes      | HTTP   | Description         |
-| ----------- | ------ | ------------------- |
-| /client     | GET    | Read All Clients    |
-| /client     | POST   | Create Client       |
-| /client/:id | GET    | Read by Client ID   |
-| /client/:id | PUT    | Update By Client ID |
-| /client/:id | DELETE | Delete By Client ID |
+| Routes       | HTTP   | Description         |
+| ------------ | ------ | ------------------- |
+| /clients     | GET    | Read All Clients    |
+| /clients     | POST   | Create Client       |
+| /clients/:id | GET    | Read by Client ID   |
+| /clients/:id | PUT    | Update By Client ID |
+| /clients/:id | DELETE | Delete By Client ID |
 
 ## 👨‍🏫 Testing
 

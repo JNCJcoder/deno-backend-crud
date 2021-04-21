@@ -23,11 +23,11 @@ class App {
 
   private routes(): void {
     this.server
-      .get("/client", ClientController.index)
-      .post("/client", ClientController.create)
-      .get("/client/:id", ClientController.read)
-      .put("/client/:id", ClientController.update)
-      .delete("/client/:id", ClientController.delete);
+      .get("/clients", ClientController.index)
+      .post("/clients", ClientController.create)
+      .get("/clients/:id", ClientController.read)
+      .put("/clients/:id", ClientController.update)
+      .delete("/clients/:id", ClientController.delete);
   }
 }
 
