@@ -66,6 +66,10 @@ class ClienteController {
 
     const ClientList: Array<ClientInterface> = await db.getData();
 
+    if(!ClientList.find(client => client.id == clientID)) {
+      context.throw(Status.NotFound, `Client ${clientID} does not exist.`);
+    }
+
     const ClientListUpdated = ClientList.filter(client => {
       if (client.id == clientID) {
         client.name = name;
