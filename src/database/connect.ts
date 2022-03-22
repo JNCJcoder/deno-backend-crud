@@ -1,22 +1,22 @@
 import type { ClientInterface } from "../models/Client.ts";
 
 class Database {
-  private db: string;
+  private databaseName: string;
 
-  constructor() {
-    this.db = "./src/database/db.json";
+  constructor(fileName: string) {
+    this.databaseName = fileName;
   }
 
   public async getData(): Promise<string> {
-    const data = await Deno.readTextFile(this.db);
+    const data = await Deno.readTextFile(this.databaseName);
     return JSON.parse(data);
   }
 
   public async updateData(info: ClientInterface[]): Promise<boolean> {
     const data = JSON.stringify(info);
-    await Deno.writeTextFile(this.db, data);
+    await Deno.writeTextFile(this.databaseName, data);
     return true;
   }
 }
 
-export default new Database();
+export default new Database("./src/database/db.json");
