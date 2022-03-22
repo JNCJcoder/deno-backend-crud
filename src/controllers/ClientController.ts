@@ -16,7 +16,7 @@ class ClienteController {
 
   public async create(context: Context) {
     if (!context.request.hasBody) {
-      context.throw(Status.BadRequest, "Invalid data")
+      context.throw(Status.BadRequest, "Invalid data.")
     }
 
     const { name }: { name: string } = await context.request.body().value;
@@ -34,21 +34,21 @@ class ClienteController {
 
     await db.updateData(ClientList);
     context.response.status = Status.Created;
-    context.response.body = { msg: "Client added successfully" };
+    context.response.body = { msg: "Client added successfully." };
   }
 
   public async read(context: Context) {
     const clientID = Number(helpers.getQuery(context, { mergeParams: true }).id);
     
     if (!(clientID >= 0)) {
-      context.throw(Status.BadRequest, "Invalid Client ID");
+      context.throw(Status.BadRequest, "Invalid Client ID.");
     }
 
     const ClientList: Array<ClientInterface> = await db.getData();
     const clientFound = ClientList.find(({ id }) => id == clientID);
 
     if (!clientFound) {
-      context.throw(Status.NotFound, `Client ${clientID} does not exist`);
+      context.throw(Status.NotFound, `Client ${clientID} does not exist.`);
     }
 
     context.response.status = Status.OK;
@@ -59,7 +59,7 @@ class ClienteController {
     const clientID = Number(helpers.getQuery(context, { mergeParams: true }).id);
 
     if (!(clientID >= 0)) {
-      context.throw(Status.BadRequest, "Invalid Client ID");
+      context.throw(Status.BadRequest, "Invalid Client ID.");
     }
     
     const { name }: { name: string } = await context.request.body().value;
