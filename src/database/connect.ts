@@ -7,7 +7,7 @@ class Database {
     this.databaseName = fileName;
   }
 
-  public async getData(): Promise<string> {
+  public async getData(): Promise<ClientInterface[]> {
     const data = await Deno.readTextFile(this.databaseName);
     return JSON.parse(data);
   }
