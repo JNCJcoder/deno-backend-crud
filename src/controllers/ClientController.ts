@@ -40,7 +40,7 @@ class ClienteController {
   public async read(context: Context) {
     const clientID = Number(helpers.getQuery(context, { mergeParams: true }).id);
     
-    if (!clientID) {
+    if (!(clientID >= 0)) {
       context.throw(Status.BadRequest, "Invalid Client ID");
     }
 
@@ -58,7 +58,7 @@ class ClienteController {
   public async update(context: Context) {
     const clientID = Number(helpers.getQuery(context, { mergeParams: true }).id);
 
-    if (!clientID) {
+    if (!(clientID >= 0)) {
       context.throw(Status.BadRequest, "Invalid Client ID");
     }
     
@@ -82,7 +82,7 @@ class ClienteController {
   public async delete(context: Context) {
     const clientID = Number(helpers.getQuery(context, { mergeParams: true }).id);
 
-    if (!clientID) {
+    if (!(clientID >= 0)) {
       context.throw(Status.BadRequest, "Invalid Client ID.");
     }
 
