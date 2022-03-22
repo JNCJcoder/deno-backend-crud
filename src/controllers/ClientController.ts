@@ -43,7 +43,7 @@ class ClienteController {
     response.body = { msg: "Client added successfully" };
   }
 
-  public async read({ params, response }: RouterContext) {
+  public async read({ params, response }: RouterContext<string>) {
     const clientID = Number(params.id);
 
     if (!clientID) {
@@ -65,7 +65,7 @@ class ClienteController {
     response.body = clientFound;
   }
 
-  public async update({ params, request, response }: RouterContext) {
+  public async update({ params, request, response }: RouterContext<string>) {
     const clientID = Number(params.id);
 
     if (!clientID) {
@@ -91,7 +91,7 @@ class ClienteController {
     response.body = { msg: `Client ${clientID} updated successfully!` };
   }
 
-  public async delete({ params, response }: RouterContext) {
+  public async delete({ params, response }: RouterContext<string>) {
     const clientID = Number(params.id);
 
     if (!clientID) {
