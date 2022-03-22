@@ -11,19 +11,15 @@ class Database {
     this.db = "./src/database/db.json";
   }
 
-  public getData(): Promise<string> {
-    return new Promise(resolve => {
-      const data = Deno.readFileSync(this.db);
-      resolve(this.decoder.decode(data));
-    })
+  public async getData(): Promise<string> {
+    const data = await Deno.readTextFile(this.db);
+    return JSON.parse(data);
   }
 
-  public updateData(data: ClientInterface[]): Promise<boolean> {
-    return new Promise(resolve => {
-      const info = this.encoder.encode(JSON.stringify(data));
-      Deno.writeFileSync(this.db, info);
-      resolve(true)
-    })
+  public async updateData(info: ClientInterface[]): Promise<boolean> {
+    const data = JSON.stringify(info);
+    await Deno.writeTextFile(this.db, data);
+    return true;
   }
 }
 
