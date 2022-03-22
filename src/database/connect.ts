@@ -1,13 +1,9 @@
 import type { ClientInterface } from "../models/Client.ts";
 
 class Database {
-  private decoder: TextDecoder;
-  private encoder: TextEncoder;
   private db: string;
 
   constructor() {
-    this.decoder = new TextDecoder("utf-8");
-    this.encoder = new TextEncoder();
     this.db = "./src/database/db.json";
   }
 
