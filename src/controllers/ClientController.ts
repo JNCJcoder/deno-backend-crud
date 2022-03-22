@@ -9,26 +9,20 @@ class ClienteController {
       const users = await db.getData();
 
       context.response.body = users;
-    } catch (err) {
-      console.log(err);
-      context.response.status = Status.InternalServerError;
-      context.response.body = { msg: err };
+    } catch (error) {
+      context.throw(Status.InternalServerError, error);
     }
   }
 
   public async create(context: Context) {
     if (!context.request.hasBody) {
-      context.response.status = Status.BadRequest;
-      context.response.body = { msg: "Invalid data" };
-      return;
+      context.throw(Status.BadRequest, "Invalid data")
     }
 
     const { name }: { name: string } = await context.request.body().value;
 
     if (!name) {
-      context.response.status = Status.UnprocessableEntity;
-      context.response.body = { msg: "Name is required." };
-      return;
+      context.throw(Status.UnprocessableEntity, "Name is required.");
     }
 
     const ClientList: Array<ClientInterface> = await db.getData();
@@ -46,20 +40,15 @@ class ClienteController {
   public async read(context: Context) {
     const clientID = Number(helpers.getQuery(context, { mergeParams: true }));
     
-
     if (!clientID) {
-      context.response.status = Status.BadRequest;
-      context.response.body = { msg: "Invalid Client ID" };
-      return;
+      context.throw(Status.BadRequest, "Invalid Client ID");
     }
 
     const ClientList: Array<ClientInterface> = await db.getData();
     const clientFound = ClientList.find(({ id }) => id == clientID);
 
     if (!clientFound) {
-      context.response.status = Status.NotFound;
-      context.response.body = { msg: `Client ${clientID} does not exist` };
-      return;
+      context.throw(Status.NotFound, `Client ${clientID} does not exist`);
     }
 
     context.response.status = Status.OK;
@@ -70,9 +59,7 @@ class ClienteController {
     const clientID = Number(helpers.getQuery(context, { mergeParams: true }));
 
     if (!clientID) {
-      context.response.status = Status.BadRequest;
-      context.response.body = { msg: "Invalid Client ID" };
-      return;
+      context.throw(Status.BadRequest, "Invalid Client ID");
     }
     
     const { name }: { name: string } = await context.request.body().value;
@@ -96,18 +83,14 @@ class ClienteController {
     const clientID = Number(helpers.getQuery(context, { mergeParams: true }));
 
     if (!clientID) {
-      context.response.status = Status.BadRequest;
-      context.response.body = { msg: "Invalid Client ID." };
-      return;
+      context.throw(Status.BadRequest, "Invalid Client ID.");
     }
 
     const ClientList: Array<ClientInterface> = await db.getData();
     const ClientListUpdated = ClientList.filter(client => client.id != clientID);
 
     if (ClientList.length === ClientListUpdated.length) {
-      context.response.status = Status.NotFound;
-      context.response.body = { msg: `Client ${clientID} does not exist.` };
-      return;
+      context.throw(Status.NotFound, `Client ${clientID} does not exist.`);
     }
 
     await db.updateData(ClientListUpdated);
