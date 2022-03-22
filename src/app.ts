@@ -5,8 +5,8 @@ import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 import ClientController from "./controllers/ClientController.ts";
 
 class App {
-  public app: Application<Record<string, any>>;
-  private server: Router<RouteParams, Record<string, any>>;
+  public app: Application<Context>;
+  private server: Router;
 
   public constructor() {
     this.app = new Application();
