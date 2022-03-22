@@ -1,7 +1,7 @@
 import db from "../database/connect.ts";
 import type { ClientInterface } from "../models/Client.ts";
-import type { Context } from "https://deno.land/x/oak/mod.ts";
-import { helpers, Status } from "https://deno.land/x/oak/mod.ts";
+import type { Context } from "https://deno.land/x/oak@v10.4.0/mod.ts";
+import { helpers, Status } from "https://deno.land/x/oak@v10.4.0/mod.ts";
 
 class ClienteController {
   public async index(context: Context) {
