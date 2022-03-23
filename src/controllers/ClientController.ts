@@ -23,10 +23,6 @@ class ClienteController {
   }
 
   public create = async (context: Context) => {
-    if (!context.request.hasBody) {
-      context.throw(Status.BadRequest, "Invalid data.")
-    }
-
     const { name }: { name: string } = await context.request.body().value;
 
     if (!name) {
