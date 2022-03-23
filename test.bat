@@ -1,0 +1,1 @@
+deno test --allow-net --allow-write --allow-read __tests__/app.test.ts

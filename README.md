@@ -33,6 +33,14 @@ Backend with CRUD Restful made using Deno, TypeScript, JSON and OAK.
 
 Download and install [Deno](https://deno.land/).
 
+Test the project using:
+
+```
+deno test --allow-net --allow-write --allow-read __tests__/app.test.ts
+```
+
+OR
+
 Run the project using:
 
 ```
