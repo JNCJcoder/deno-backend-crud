@@ -1,6 +1,11 @@
 import type { ClientInterface } from "../models/Client.ts";
 
-class Database {
+export interface IDatabase {
+  getData(): Promise<ClientInterface[]>;
+  updateData(info: ClientInterface[]): Promise<boolean>;
+}
+
+class Database implements IDatabase {
   private databaseName: string;
 
   constructor(fileName: string) {
@@ -19,4 +24,4 @@ class Database {
   }
 }
 
-export default new Database("./src/database/db.json");
+export default Database;
