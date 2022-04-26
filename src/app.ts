@@ -2,9 +2,9 @@ import type { Context } from "https://deno.land/x/oak@v10.4.0/mod.ts";
 import { Application, Router } from "https://deno.land/x/oak@v10.4.0/mod.ts";
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 
-import JsonDB from "./database/connect.ts";
 import errorHandler from "./middlewares/error-handler.middleware.ts";
-import ClientControllerClass from "./controllers/ClientController.ts";
+
+import ClientController from "./controllers/ClientController.ts";
 
 class App {
   public app: Application<Context>;
@@ -26,9 +26,6 @@ class App {
   }
 
   private routes(): void {
-    const database = new JsonDB("./src/database/db.json");
-    const ClientController = new ClientControllerClass(database);
-    
     this.server
       .get("/clients", ClientController.index)
       .post("/clients", ClientController.create)
